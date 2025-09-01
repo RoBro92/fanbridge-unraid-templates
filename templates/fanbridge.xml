@@ -1,6 +1,6 @@
 <Application>
-  <Name>fanbridge-dev</Name>
-  <Overview>Minimal scaffold for fanbridge (dev testing).</Overview>
+  <Name>fanbridge</Name>
+  <Overview>Control of external PWM fans over serial USB to Arduino</Overview>
   <Category>Development:Testing</Category>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
