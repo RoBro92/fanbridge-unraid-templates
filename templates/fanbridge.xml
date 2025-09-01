@@ -1,5 +1,5 @@
 <Application>
-  <Name>fanbridge (dev)</Name>
+  <Name>fanbridge-dev</Name>
   <Overview>Minimal scaffold for fanbridge (dev testing).</Overview>
   <Category>Development:Testing</Category>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
