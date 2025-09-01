@@ -1,14 +1,23 @@
 <Application>
   <Name>fanbridge</Name>
   <Overview>Control of external PWM fans over serial USB to Arduino</Overview>
-  <Category>Development:Testing</Category>
+  <Category>System:Utilities</Category>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
+  <Support>https://github.com/RoBro92/fanbridge/issues</Support>
+  <Project>https://github.com/RoBro92/fanbridge</Project>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
+
+  <!-- Ports -->
   <Config Name="Web UI Port" Target="8080" Default="8080" Mode="tcp" Type="Port" Description="Web UI" Display="always" Required="true" Mask="false">8080</Config>
+
+  <!-- Paths -->
   <Config Name="AppData" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Config directory" Display="always" Required="true" Mask="false"/>
-</Application>
+
+  <!-- Capabilities for smartctl in-container (real mode) -->
   <Config Name="SYS_RAWIO" Target="SYS_RAWIO" Type="Flag" Default="true" Description="Allow SMART access (smartctl -n standby) for real mode" Display="advanced" Required="false">true</Config>
+
+  <!-- Optional: map /dev read-only (or map individual /dev/sdX and /dev/nvme0 instead) -->
   <Config Name="Devices (/dev read-only)" Target="/dev" Default="/dev" Type="Path" Mode="ro" Description="Expose /dev for smartctl (read-only). Alternatively, map individual /dev/sdX and /dev/nvme0" Display="advanced" Required="false" Mask="false"/>
 </Application>
