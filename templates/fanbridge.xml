@@ -5,6 +5,7 @@
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
   <Support>https://github.com/RoBro92/fanbridge/issues</Support>
   <Project>https://github.com/RoBro92/fanbridge</Project>
+  <Icon>https://raw.githubusercontent.com/RoBro92/fanbridge-unraid-templates/master/icons/fanbridge.png</Icon>
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
