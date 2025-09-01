@@ -1,0 +1,11 @@
+<Application>
+  <Name>fanbridge (dev)</Name>
+  <Overview>Minimal scaffold for fanbridge (dev testing).</Overview>
+  <Category>Development:Testing</Category>
+  <Repository>ghcr.io/RoBro92/fanbridge:latest</Repository>
+  <WebUI>http://[IP]:[PORT:8080]/</WebUI>
+  <Network>bridge</Network>
+  <Privileged>false</Privileged>
+  <Config Name="Web UI Port" Target="8080" Default="8080" Mode="tcp" Type="Port" Description="Web UI" Display="always" Required="true" Mask="false">8080</Config>
+  <Config Name="AppData" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Config directory" Display="always" Required="true" Mask="false"/>
+</Application>
