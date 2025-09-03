@@ -21,4 +21,5 @@
 
   <!-- Optional: map /dev read-only (or map individual /dev/sdX and /dev/nvme0 instead) -->
   <Config Name="Devices (/dev read-only)" Target="/dev" Default="/dev" Type="Path" Mode="ro" Description="Expose /dev for smartctl (read-only). Alternatively, map individual /dev/sdX and /dev/nvme0" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Unraid disks.ini" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Unraid disks.ini (read-only)" Display="always" Required="true" Mask="false"/>
 </Application>
