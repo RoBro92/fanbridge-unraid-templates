@@ -23,7 +23,8 @@
   <!-- Paths -->
   <Config Name="AppData" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Config directory" Display="always" Required="true" Mask="false"/>
 
-  <Config Name="Unraid disks.ini" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Unraid disks.ini (read-only)" Display="always" Required="true" Mask="false"/>
-  <!-- Optional: mount the whole emhttp dir (advanced). Either this OR the single-file bind above is sufficient. -->
-  <Config Name="Unraid emhttp directory (optional)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Mount full emhttp dir. Leave empty if using single-file bind above." Display="advanced" Required="false" Mask="false"/>
+  <!-- Mount Unraid disks.ini directly -->
+  <Config Name="Unraid disks.ini" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind Unraid disks.ini into container" Display="always" Required="true" Mask="false"/>
+  <!-- Optional advanced mount -->
+  <Config Name="Unraid emhttp directory (optional)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
 </Application>
