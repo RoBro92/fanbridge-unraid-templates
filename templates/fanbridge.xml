@@ -1,6 +1,6 @@
 <Application>
   <Name>fanbridge</Name>
-  <Version>0.0.2</Version>
+  <Version>0.0.3</Version>
   <Overview>Control of external PWM fans over serial USB to Arduino</Overview>
   <Category>System:Utilities</Category>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
