@@ -29,5 +29,5 @@
   <Config Name="Unraid emhttp directory" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
     <!-- Mounts for USB Serial device -->
   <Config Name="Serial TTY (Arduino/RP2040)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Path" Mode="rw" Description="Map your USB serial TTY (e.g., /dev/ttyACM0 or /dev/ttyUSB0). Use EDIT to choose the right device. RW required to send PWM." Display="always" Required="false" Mask="false"/>
-  <Config Name="Serial by-id directory (optional)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable symlinks for USB serial devices. Still map the actual TTY above for read/write." Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Serial by-id directory (optional)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable symlinks for USB serial devices. Still map the actual TTY above for read/write." Display="always" Required="false" Mask="false"/>
 </Application>
