@@ -11,7 +11,6 @@
   <Network>bridge</Network>
   <Privileged>false</Privileged>
 
-  <!-- Helpful labels so DockerMan knows WebUI + icon -->
   <ExtraParams>
     --label net.unraid.docker.managed=dockerman
     --label net.unraid.docker.webui='http://[IP]:[PORT:8080]/'
@@ -27,5 +26,5 @@
   <!-- Mount Unraid disks.ini directly -->
   <Config Name="Unraid disks.ini" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind Unraid disks.ini into container" Display="always" Required="true" Mask="false"/>
   <!-- Optional advanced mount -->
-  <Config Name="Unraid emhttp directory (optional)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
+  <Config Name="Unraid emhttp directory" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
 </Application>
