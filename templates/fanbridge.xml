@@ -1,5 +1,5 @@
 <Application>
-  <Name>fanbridge</Name>
+  <Name>FanBridge</Name>
   <Version>0.1.0</Version>
   <Overview>Control of external PWM fans over serial USB to Arduino</Overview>
   <Category>System:Utilities</Category>
@@ -28,6 +28,6 @@
   <!-- Optional advanced mount -->
   <Config Name="Unraid emhttp directory" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
     <!-- Mounts for USB Serial device -->
-  <Config Name="Serial device (Arduino/RP2040)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Device" Mode="" Description="Map the USB serial device for your microcontroller (e.g., /dev/ttyACM0 or /dev/ttyUSB0). Use by-id path for stability." Display="always" Required="false" Mask="false"/>
-  <Config Name="Serial by-id (optional, read-only)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose symlinks for stable device names. Still map the actual tty above for read/write." Display="advanced" Required="false" Mask="false"/> 
+  <Config Name="Serial TTY (Arduino/RP2040)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Path" Mode="rw" Description="Map your USB serial TTY (e.g., /dev/ttyACM0 or /dev/ttyUSB0). Use EDIT to choose the right device. RW required to send PWM." Display="always" Required="false" Mask="false"/>
+  <Config Name="Serial by-id directory (optional)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable symlinks for USB serial devices. Still map the actual TTY above for read/write." Display="advanced" Required="false" Mask="false"/>
 </Application>
