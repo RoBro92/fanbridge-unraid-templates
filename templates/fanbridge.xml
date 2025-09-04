@@ -15,6 +15,9 @@
     --label net.unraid.docker.managed=dockerman
     --label net.unraid.docker.webui='http://[IP]:[PORT:8080]/'
     --label net.unraid.docker.icon='https://raw.githubusercontent.com/RoBro92/fanbridge-unraid-templates/master/icons/fanbridge.png'
+    --device-cgroup-rule='c 166:* rmw'
+    --device-cgroup-rule='c 188:* rmw'
+    --group-add=16
   </ExtraParams>
 
   <!-- Ports -->
@@ -23,11 +26,15 @@
   <!-- Paths -->
   <Config Name="AppData" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Config directory" Display="always" Required="true" Mask="false"/>
 
+  <!-- Environment / tuning -->
+  <Config Name="Preferred serial port" Target="FANBRIDGE_SERIAL_PORT" Default="/dev/ttyACM0" Type="Variable" Description="Container env for preferred serial port. Should match the mapped TTY below. Use by-id path if available." Display="always" Required="false" Mask="false">/dev/ttyACM0</Config>
+  <Config Name="Serial baud" Target="FANBRIDGE_SERIAL_BAUD" Default="115200" Type="Variable" Description="Baud rate used to talk to the Arduino/RP2040." Display="advanced" Required="false" Mask="false">115200</Config>
+
   <!-- Mount Unraid disks.ini directly -->
   <Config Name="Unraid disks.ini" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind Unraid disks.ini into container" Display="always" Required="true" Mask="false"/>
   <!-- Optional advanced mount -->
   <Config Name="Unraid emhttp directory" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind full emhttp directory instead of single file if needed" Display="advanced" Required="false" Mask="false"/>
     <!-- Mounts for USB Serial device -->
-  <Config Name="Serial TTY (Arduino/RP2040)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Path" Mode="rw" Description="Map your USB serial TTY (e.g., /dev/ttyACM0 or /dev/ttyUSB0). Use EDIT to choose the right device. RW required to send PWM." Display="always" Required="false" Mask="false"/>
-  <Config Name="Serial by-id directory (optional)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable symlinks for USB serial devices. Still map the actual TTY above for read/write." Display="always" Required="false" Mask="false"/>
+  <Config Name="Serial TTY (Arduino/RP2040)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Device" Mode="" Description="Map your USB serial TTY (e.g., /dev/ttyACM0 or /dev/ttyUSB0). Device mapping provides R/W access required to send PWM." Display="always" Required="false" Mask="false"/>
+  <Config Name="Serial by-id directory (optional)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable symlinks for USB serial devices. Still map the actual TTY above for read/write." Display="advanced" Required="false" Mask="false"/>
 </Application>
