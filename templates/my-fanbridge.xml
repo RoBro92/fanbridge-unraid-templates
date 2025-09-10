@@ -1,7 +1,7 @@
 <Application>
   <Name>FanBridge</Name>
-  <Version>0.2.0-dev</Version>
-  <Overview>Control of external PWM fans over serial USB to Arduino</Overview>
+  <Version>0.2.1-dev</Version>
+  <Overview>Control of external PWM fans over serial USB to RP2040</Overview>
   <Category>System:Utilities</Category>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
   <Support>https://github.com/RoBro92/fanbridge/issues</Support>
@@ -10,17 +10,13 @@
   <WebUI>http://[IP]:[PORT:8080]/</WebUI>
   <Network>bridge</Network>
   <Privileged>false</Privileged>
-
   <ExtraParams>
     --label net.unraid.docker.managed=dockerman
     --label net.unraid.docker.webui='http://[IP]:[PORT:8080]/'
     --label net.unraid.docker.icon='https://raw.githubusercontent.com/RoBro92/fanbridge-unraid-templates/master/icons/fanbridge.png'
   </ExtraParams>
-
-  <!-- Ports -->
   <Config Name="Web UI Port" Target="8080" Default="8080" Mode="tcp" Type="Port" Description="Web UI" Display="always" Required="true" Mask="false">8080</Config>
 
-  <!-- Paths -->
   <Config Name="AppData" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Config directory" Display="always" Required="true" Mask="false"/>
 
   <!-- Environment / tuning -->
