@@ -25,22 +25,22 @@
   <!-- Paths (Host → Container) -->
   <Config Name="AppData (config)" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Container configuration directory. Persist settings and user data here." Display="always" Required="true" Mask="false"/>
 
-  <Config Name="Unraid emhttp directory (read-only)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind the full emhttp directory (preferred). Ensures updates to disks.ini are visible instantly inside the container." Display="always" Required="true" Mask="false"/>
+  <Config Name="Unraid emhttp directory (read-only)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind the full emhttp directory (preferred). Ensures updates to disks.ini are visible instantly inside the container. Optional — if not mapped, the app runs without drive data." Display="always" Required="false" Mask="false"/>
 
-  <Config Name="USB by-id directory (optional, ro)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable udev by-id symlinks for USB serial devices. Recommended for persistent device naming. (Still map the actual Device below for R/W access.)" Display="always" Required="false" Mask="false"/>
+  <Config Name="USB by-id directory (optional, ro)" Target="/dev/serial/by-id" Default="/dev/serial/by-id" Type="Path" Mode="ro" Description="Expose stable udev by-id symlinks for USB serial devices. Recommended for persistent device naming. Optional — safe to leave unset." Display="always" Required="false" Mask="false"/>
 
   <!-- (Advanced) Single-file bind; not recommended as Unraid replaces disks.ini atomically -->
-  <Config Name="(Advanced) disks.ini only (ro)" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind only disks.ini (not recommended). Atomic replacement on the host can make the file appear stale inside the container. Prefer mapping the directory above." Display="advanced" Required="false" Mask="false"/>
+  <Config Name="(Advanced) disks.ini only (ro)" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind only disks.ini (not recommended). Optional — if not mapped, the app runs without drive data. Prefer mapping the directory above." Display="advanced" Required="false" Mask="false"/>
 
   <!-- Device mapping -->
-  <Config Name="Serial TTY Device (default /dev/ttyACM0)" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Device" Mode="" Description="Map your USB serial device (e.g., /dev/ttyACM0, /dev/ttyUSB0, or a by-id path). This grants R/W access required to talk to the controller." Display="always" Required="true" Mask="false"/>
+  <Config Name="Serial TTY Device" Target="/dev/ttyACM0" Default="" Type="Device" Mode="" Description="Optional. Recommended device: /dev/ttyACM0 (RP2040). Map your USB serial device when connected; leave this blank by default so the container starts even if the device is unplugged." Display="always" Required="false" Mask="false"/>
 
   <!-- Environment variables -->
-  <Config Name="Preferred serial port" Target="FANBRIDGE_SERIAL_PORT" Default="/dev/ttyACM0" Type="Variable" Description="Preferred serial port inside the container. Leave blank to auto-detect; recommended to set a by-id path if available." Display="always" Required="false" Mask="false">/dev/ttyACM0</Config>
+  <Config Name="Preferred serial port" Target="FANBRIDGE_SERIAL_PORT" Default="/dev/ttyACM0" Type="Variable" Description="Defaults to /dev/ttyACM0 (RP2040). Optional: set a stable by-id path (requires mapping /dev/serial/by-id:ro)." Display="always" Required="false" Mask="false">/dev/ttyACM0</Config>
   <Config Name="Serial baud" Target="FANBRIDGE_SERIAL_BAUD" Default="115200" Type="Variable" Description="Baud rate used for the microcontroller connection." Display="advanced" Required="false" Mask="false">115200</Config>
   <Config Name="Secure cookies (HTTPS)" Target="FANBRIDGE_SECURE_COOKIES" Default="0" Type="Variable" Description="Set to 1 when serving the UI over HTTPS behind a reverse proxy to mark cookies as Secure." Display="advanced" Required="false" Mask="false">0</Config>
   <Config Name="Gunicorn workers" Target="GUNICORN_WORKERS" Default="2" Type="Variable" Description="Number of web worker processes." Display="advanced" Required="false" Mask="false">2</Config>
   <Config Name="Gunicorn timeout (s)" Target="GUNICORN_TIMEOUT" Default="30" Type="Variable" Description="Worker timeout in seconds." Display="advanced" Required="false" Mask="false">30</Config>
 
-  <Version>1.0.0</Version>
+  <Version>1.1.0</Version>
 </Application>
