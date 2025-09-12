@@ -2,11 +2,9 @@
 <Application>
   <Name>FanBridge</Name>
   <Overview><![CDATA[
-  FanBridge – bridge Unraid drive temperatures to an external microcontroller (Arduino/RP2040) over USB serial to control PWM fans.
+  FanBridge – bridge Unraid drive temperatures to an external microcontroller (RP2040) over USB serial to control PWM fans.
   
-  First‑start safe: All mappings are optional. The container starts even if no serial device is present and even if /unraid is not mapped (UI runs with limited data).
-  
-  To enable the controller later, add a Device mapping for your TTY (e.g. /dev/ttyACM0 → /dev/ttyACM0) and optionally map /dev/serial/by-id (ro) for stable names. You can set FANBRIDGE_SERIAL_PORT to a by‑id path once /dev/serial/by-id is mapped.]]></Overview>
+  Defaults match a known‑working Unraid setup: port 8080, appdata at /mnt/maincache/appdata/fanbridge, the Unraid emhttp directory mounted read‑only at /unraid, and a serial TTY at /dev/ttyACM0. Only these basics are included for now to avoid confusion.]]></Overview>
   <Category>System:Utilities</Category>
   <Registry>https://github.com/RoBro92/fanbridge/pkgs/container/fanbridge</Registry>
   <Repository>ghcr.io/robro92/fanbridge:latest</Repository>
@@ -14,6 +12,8 @@
   <Network>bridge</Network>
   <Privileged>false</Privileged>
   <Icon>https://raw.githubusercontent.com/RoBro92/fanbridge-unraid-templates/master/icons/fanbridge.png</Icon>
+  <Support>https://forums.unraid.net/topic/193488-fanbridge-docker-support/</Support>
+  <DonateLink>https://ko-fi.com/robro92</DonateLink>
   <ExtraParams>
     --label net.unraid.docker.managed=dockerman
     --label net.unraid.docker.webui='http://[IP]:[PORT:8080]/'
@@ -24,23 +24,16 @@
   <Config Name="Web UI Port" Target="8080" Default="8080" Mode="tcp" Type="Port" Description="Web interface port" Display="always" Required="true" Mask="false">8080</Config>
 
   <!-- Paths (Host → Container) -->
-  <Config Name="AppData (config)" Target="/config" Default="/mnt/user/appdata/fanbridge" Type="Path" Mode="rw" Description="Container configuration directory. Persist settings and user data here." Display="always" Required="true" Mask="false"/>
+  <Config Name="AppData (config)" Target="/config" Default="/mnt/maincache/appdata/fanbridge" Type="Path" Mode="rw" Description="Container configuration directory. Persist settings and user data here." Display="always" Required="true" Mask="false"/>
 
-  <Config Name="Unraid emhttp directory (read-only)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind the full emhttp directory (preferred). Ensures updates to disks.ini are visible instantly inside the container. Optional — if not mapped, the app runs without drive data." Display="always" Required="false" Mask="false"/>
+  <Config Name="Unraid emhttp directory (read-only)" Target="/unraid" Default="/var/local/emhttp" Type="Path" Mode="ro" Description="Bind the full emhttp directory (preferred)." Display="always" Required="false" Mask="false"/>
 
-  <Config Name="USB by-id directory (optional, ro)" Target="/dev/serial/by-id" Default="" Type="Path" Mode="ro" Description="Expose stable udev by-id symlinks for USB serial devices. Optional — safe to leave unset; add later if you want stable names." Display="always" Required="false" Mask="false"/>
+  <!-- Serial TTY: default /dev/ttyACM0 -->
+  <Config Name="Serial TTY" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Path" Mode="rw" Description="Bind the serial device inside the container at the same path." Display="always" Required="false" Mask="false"/>
+  <Config Name="/dev/ttyACM0" Target="/dev/ttyACM0" Default="/dev/ttyACM0" Type="Device" Description="Expose the serial device directly." Display="always" Required="false" Mask="false"/>
 
-  <!-- (Advanced) Single-file bind; not recommended as Unraid replaces disks.ini atomically -->
-  <Config Name="(Advanced) disks.ini only (ro)" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind only disks.ini (not recommended). Optional — if not mapped, the app runs without drive data. Prefer mapping the directory above." Display="advanced" Required="false" Mask="false"/>
+  <!-- Optional: single-file bind (advanced) -->
+  <Config Name="Unraid disks.ini (ro)" Target="/unraid/disks.ini" Default="/var/local/emhttp/disks.ini" Type="Path" Mode="ro" Description="Bind only disks.ini (optional)." Display="advanced" Required="false" Mask="false"/>
 
-  <!-- Note: No default Device mapping is provided to avoid Unraid passing --device='' on empty values. Add a Device after install when the controller is connected. -->
-
-  <!-- Environment variables -->
-  <Config Name="Preferred serial port" Target="FANBRIDGE_SERIAL_PORT" Default="" Type="Variable" Description="Optional. Leave blank to auto-detect (defaults to /dev/ttyACM0 in Docker). You can set a stable by-id path later." Display="always" Required="false" Mask="false"></Config>
-  <Config Name="Serial baud" Target="FANBRIDGE_SERIAL_BAUD" Default="115200" Type="Variable" Description="Baud rate used for the microcontroller connection." Display="advanced" Required="false" Mask="false">115200</Config>
-  <Config Name="Secure cookies (HTTPS)" Target="FANBRIDGE_SECURE_COOKIES" Default="0" Type="Variable" Description="Set to 1 when serving the UI over HTTPS behind a reverse proxy to mark cookies as Secure." Display="advanced" Required="false" Mask="false">0</Config>
-  <Config Name="Gunicorn workers" Target="GUNICORN_WORKERS" Default="2" Type="Variable" Description="Number of web worker processes." Display="advanced" Required="false" Mask="false">2</Config>
-  <Config Name="Gunicorn timeout (s)" Target="GUNICORN_TIMEOUT" Default="30" Type="Variable" Description="Worker timeout in seconds." Display="advanced" Required="false" Mask="false">30</Config>
-
-  <Version>1.1.0</Version>
+  <Version>1.2.0</Version>
 </Application>
